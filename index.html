@@ -3,227 +3,778 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aniket Pathak — CSE Student & Developer</title>
-<link rel="icon" type="image/png" href="favicon.png">
+  <title>Aniket Pathak | Interactive Dev Portfolio</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
+    /* RESET & CORE VARIABLES */
     :root {
-      --bg-color: #0f1115;
-      --card-bg: #161920;
-      --text-main: #f1f3f5;
-      --text-muted: #9ba1a6;
-      --accent: #3b82f6;
-      --accent-hover: #2563eb;
-      --border-color: #262b36;
+      --bg-color: #080b10;
+      --card-bg: rgba(22, 27, 34, 0.7);
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-pink: #e1306c;
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --border-color: rgba(48, 54, 61, 0.8);
+      --glow: 0 0 20px rgba(0, 242, 254, 0.35);
+      --glow-pink: 0 0 20px rgba(225, 48, 108, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+      font-family: 'Inter', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(225, 48, 108, 0.08) 0%, transparent 40%);
+    }
+
+    /* GLASS NAVIGATION BAR */
+    .navbar {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(15px);
+      background: rgba(13, 17, 23, 0.75);
+      border-bottom: 1px solid var(--border-color);
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      font-family: 'Fira Code', monospace;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo span { color: var(--accent-cyan); }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-cyan);
+      text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      text-align: center;
+      padding: 40px 0 50px;
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      padding: 6px 16px;
+      border-radius: 30px;
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+      font-family: 'Fira Code', monospace;
+      margin-bottom: 20px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-cyan);
+      animation: pulse-ring 1.5s infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 242, 254, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 50%, var(--accent-blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 30px;
       line-height: 1.6;
     }
 
-    .wrapper {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 60px 20px;
+    /* IMPACT STATS GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 60px;
     }
 
-    /* Header Section */
-    header {
-      margin-bottom: 50px;
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      margin: 0 0 10px 0;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .bio {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      margin-bottom: 20px;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .social-links a {
-      color: var(--text-main);
-      background-color: var(--card-bg);
+    .stat-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 22px 18px;
+      text-align: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: block;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-cyan);
+      box-shadow: var(--glow);
+    }
+
+    .stat-card.pink-highlight:hover {
+      border-color: var(--accent-pink);
+      box-shadow: var(--glow-pink);
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      margin-bottom: 4px;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .stat-number.pink-text {
+      color: var(--accent-pink);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .stat-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* INTERACTIVE TERMINAL WIDGET */
+    .console-wrapper {
+      background: #0d1117;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      margin-bottom: 60px;
+      text-align: left;
+    }
+
+    .console-header {
+      background: #161b22;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .console-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .console-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .c-red { background: #ff5f56; }
+    .c-yellow { background: #ffbd2e; }
+    .c-green { background: #27c93f; }
+
+    .console-title {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .console-body {
+      padding: 25px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      min-height: 220px;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+
+    .console-quick-cmds {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .cmd-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--accent-cyan);
       padding: 6px 14px;
       border-radius: 6px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .social-links a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+    .cmd-btn:hover {
+      background: var(--accent-cyan);
+      color: #000;
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
     }
 
-    /* Sections */
-    section {
-      margin-bottom: 45px;
+    /* GRID LAYOUT FOR CARDS */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
     }
 
-    h2 {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 8px;
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
     }
 
-    /* Cards / Items */
-    .card {
-      background-color: var(--card-bg);
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      margin-bottom: 60px;
+    }
+
+    /* GLASS CARD */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--border-color);
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      transition: transform 0.2s ease;
+      border-radius: 14px;
+      padding: 28px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
     }
 
-    .card:hover {
-      border-color: #3a4150;
+    .glass-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-cyan);
+      box-shadow: var(--glow);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      color: var(--accent-cyan);
+      margin-bottom: 15px;
     }
 
     .card-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin: 0 0 5px 0;
-      color: var(--text-main);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
     }
 
     .card-subtitle {
-      font-size: 0.9rem;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .card-date {
       font-size: 0.85rem;
-      color: var(--text-muted);
-      float: right;
+      color: var(--accent-blue);
+      margin-bottom: 15px;
+      font-weight: 600;
     }
 
-    p {
-      margin: 0 0 10px 0;
+    .card-text {
       color: var(--text-muted);
-      font-size: 0.95krem;
+      font-size: 0.95rem;
+      line-height: 1.6;
     }
 
-    ul {
-      margin: 10px 0 0 0;
-      padding-left: 20px;
+    /* EVENT METRICS INSIDE CARD */
+    .event-metrics {
+      display: flex;
+      gap: 15px;
+      margin: 15px 0;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .metric-item {
+      flex: 1;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .metric-label {
+      font-size: 0.72rem;
       color: var(--text-muted);
+    }
+
+    /* TECH & SOFT STACK BADGES */
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tech-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      color: #c9d1d9;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background: #0d1117;
+      border-top: 1px solid var(--border-color);
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .footer-social-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .footer-social-btn:hover {
+      background: var(--accent-cyan);
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+    }
+
+    .copyright-text {
       font-size: 0.9rem;
-    }
-
-    li {
+      color: var(--text-muted);
       margin-bottom: 6px;
     }
 
-    /* Footer */
-    footer {
-      margin-top: 60px;
-      border-top: 1px solid var(--border-color);
-      padding-top: 20px;
-      color: var(--text-muted);
-      font-size: 0.85rem;
+    .timestamp-text {
+      font-size: 0.78rem;
+      color: #484f58;
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* TOP SCROLL BUTTON */
+    #topBtn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+      background: #161b22;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 1000;
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: center;
     }
 
-    footer a {
-      color: var(--text-muted);
-      text-decoration: none;
+    #topBtn:hover {
+      background: var(--accent-cyan);
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
     }
 
-    footer a:hover {
-      color: var(--text-main);
+    @media (max-width: 768px) {
+      .navbar { padding: 15px 20px; }
+      .nav-links { display: none; }
+      .hero-title { font-size: 2.2rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="wrapper">
+  <!-- NAVIGATION BAR -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <i class="fa-solid fa-code"></i> ANIKET <span>PATHAK</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#stats">Stats</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#academics">Academics</a></li>
+    </ul>
+  </nav>
 
-    <!-- Header / Intro -->
-    <header>
-      <h1>Aniket Pathak</h1>
-      <div class="bio">
-        Diploma Student in Computer Science & Engineering | Aspiring Software Developer | Tech Enthusiast
-      </div>
-      <div class="social-links">
-        <a href="https://linkedin.com/in/aniket-pathakkk/" target="_blank">LinkedIn ↗</a>
-        <a href="https://github.com/aniketpathakkk" target="_blank">GitHub ↗</a>
-       <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aniketpathakkk@gmail.com" target="_blank">Email ↗</a>
-      </div>
-    </header>
+  <div class="container">
 
-    <!-- Experience Section -->
-    <section>
-      <h2>Experience</h2>
-      
-      <div class="card">
-        <span class="card-date">Sep 2025 – Jun 2026</span>
-        <div class="card-title">Founder & Event Coordinator</div>
-        <div class="card-subtitle">Shrisawariya Events · Gorakhpur, UP</div>
-        <p>Founded and operated an event venture focused on planning and executing student and social events.</p>
-        <ul>
-          <li>Led event planning, budget preparation, and vendor coordination.</li>
-          <li>Managed on-ground logistics, schedules, and team communication.</li>
-          <li>Gained hands-on experience in leadership, problem-solving, and client management.</li>
-        </ul>
+    <!-- HERO SECTION -->
+    <section class="hero" id="about">
+      <div class="badge-status">
+        <span class="pulse-dot"></span> Active CS Student & Learner
       </div>
-    </section>
+      <h1 class="hero-title">Computer Science & Engineering Explorer</h1>
+      <p class="hero-subtitle">
+        First-Year CSE Diploma Student at <strong>Government Polytechnic, Sardhana, Meerut</strong>. Combining analytical software engineering with real-world event leadership.
+      </p>
 
-    <!-- Projects Section -->
-    <section>
-      <h2>Projects</h2>
-      
-      <div class="card">
-        <div class="card-title">Personal Portfolio Website</div>
-        <div class="card-subtitle">HTML & CSS</div>
-        <p>Designed and built a responsive personal portfolio from scratch using HTML and CSS, featuring structured layouts and professional links.</p>
+      <!-- QUICK ACTION BUTTONS -->
+      <div style="margin-top: 20px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+        <a href="https://github.com/mynameispathak" target="_blank" class="cmd-btn" style="padding: 10px 22px; font-size: 0.9rem; text-decoration: none;">
+          <i class="fa-brands fa-github"></i> Explore GitHub
+        </a>
+        <a href="https://linkedin.com/in/aniket-pathak" target="_blank" class="cmd-btn" style="padding: 10px 22px; font-size: 0.9rem; text-decoration: none; background: var(--accent-cyan); color: #000;">
+          <i class="fa-brands fa-linkedin"></i> Connect on LinkedIn
+        </a>
       </div>
     </section>
 
-    <!-- Skills Section -->
-    <section>
-      <h2>Skills & Tools</h2>
-      <div class="card">
-        <div class="card-title">Technical & Professional Skills</div>
-        <p style="margin-top: 8px;">
-          <strong>Languages:</strong> Python, C (Learning)<br>
-          <strong>Web:</strong> HTML, CSS<br>
-          <strong>Management:</strong> Event Planning, Budgeting, Leadership<br>
-          <strong>Tools:</strong> VS Code, Git, GitHub, Command Line CLI
-        </p>
+    <!-- HIGHLIGHT STATS DASHBOARD -->
+    <section id="stats">
+      <div class="stats-grid">
+        <!-- 64K REEL STAT CARD -->
+        <a href="https://www.instagram.com/reel/DVNa1OnCZPH/?utm_source=ig_web_copy_link&srtk=MWQ1ZGUxMzBkMA==" target="_blank" class="stat-card pink-highlight">
+          <div class="stat-number pink-text">64K+</div>
+          <div class="stat-label">Reel Views <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i></div>
+          <div class="stat-desc">Promotional event campaign on Instagram</div>
+        </a>
+        
+        <div class="stat-card">
+          <div class="stat-number">368/500</div>
+          <div class="stat-label">CBSE 10th Marks</div>
+          <div class="stat-desc">73.6% Secondary Examination Score</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-number">CS50x</div>
+          <div class="stat-label">Harvard Track</div>
+          <div class="stat-desc">Active learning in C, Python & Algorithms</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-number">1st Year</div>
+          <div class="stat-label">CSE Diploma</div>
+          <div class="stat-desc">Govt. Polytechnic Sardhana Meerut</div>
+        </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-      <div>© 2026 Aniket Pathak</div>
-      <div><a href="#">Back to top ↑</a></div>
-    </footer>
+    <!-- INTERACTIVE TERMINAL SECTION -->
+    <section id="terminal" style="margin-bottom: 60px;">
+      <div class="section-header">
+        <h2 class="section-title">Interactive Console</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="console-wrapper">
+        <div class="console-header">
+          <div class="console-dots">
+            <span class="console-dot c-red"></span>
+            <span class="console-dot c-yellow"></span>
+            <span class="console-dot c-green"></span>
+          </div>
+          <div class="console-title">aniket@portfolio:~</div>
+        </div>
+        <div class="console-body" id="consoleOutput">
+          <p style="color: var(--accent-cyan);">$ welcome --user visitor</p>
+          <p>Hi, I'm Aniket Pathak! Welcome to my interactive console.</p>
+          <p>Type or click a command below to explore my profile:</p>
+        </div>
+        <div style="padding: 15px 25px; border-top: 1px solid var(--border-color); background: #161b22;">
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">Quick Executable Commands:</p>
+          <div class="console-quick-cmds">
+            <button class="cmd-btn" onclick="runCommand('reel')">reel</button>
+            <button class="cmd-btn" onclick="runCommand('events')">events</button>
+            <button class="cmd-btn" onclick="runCommand('cs50x')">cs50x</button>
+            <button class="cmd-btn" onclick="runCommand('skills')">skills</button>
+            <button class="cmd-btn" onclick="runCommand('academics')">academics</button>
+            <button class="cmd-btn" onclick="runCommand('email')">email</button>
+            <button class="cmd-btn" onclick="runCommand('clear')">clear</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS MATRIX SECTION -->
+    <section id="skills" style="margin-bottom: 60px;">
+      <div class="section-header">
+        <h2 class="section-title">Skills & Capabilities</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Programming & Core CS -->
+        <div class="glass-card">
+          <div class="card-icon"><i class="fa-solid fa-code"></i></div>
+          <h3 class="card-title">Technical & Programming Skills</h3>
+          <p class="card-subtitle">Development & Fundamentals</p>
+          <div class="tech-stack" style="margin-top: 15px;">
+            <span class="tech-badge"><i class="fa-brands fa-c"></i> C Language</span>
+            <span class="tech-badge"><i class="fa-brands fa-python"></i> Python</span>
+            <span class="tech-badge"><i class="fa-brands fa-html5"></i> HTML5</span>
+            <span class="tech-badge"><i class="fa-brands fa-css3-alt"></i> CSS3</span>
+            <span class="tech-badge"><i class="fa-brands fa-git-alt"></i> Git & GitHub</span>
+            <span class="tech-badge"><i class="fa-brands fa-linux"></i> Linux OS</span>
+            <span class="tech-badge"><i class="fa-solid fa-terminal"></i> Command Line</span>
+          </div>
+        </div>
+
+        <!-- Management & Leadership -->
+        <div class="glass-card">
+          <div class="card-icon"><i class="fa-solid fa-people-roof"></i></div>
+          <h3 class="card-title">Leadership & Digital Reach</h3>
+          <p class="card-subtitle">Real-World Execution & Campaign Management</p>
+          <div class="tech-stack" style="margin-top: 15px;">
+            <span class="tech-badge"><i class="fa-solid fa-eye"></i> Digital Marketing (64K+ Views)</span>
+            <span class="tech-badge"><i class="fa-solid fa-comments"></i> Client Communication</span>
+            <span class="tech-badge"><i class="fa-solid fa-map-location-dot"></i> Venue Logistics</span>
+            <span class="tech-badge"><i class="fa-solid fa-users"></i> Team Coordination</span>
+            <span class="tech-badge"><i class="fa-solid fa-bullhorn"></i> Event Promotion</span>
+            <span class="tech-badge"><i class="fa-solid fa-handshake"></i> Negotiation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE & LEADERSHIP -->
+    <section id="experience" style="margin-bottom: 60px;">
+      <div class="section-header">
+        <h2 class="section-title">Leadership & Experience</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="glass-card">
+          <div class="card-icon"><i class="fa-solid fa-crown"></i></div>
+          <h3 class="card-title">Founder & Organizer</h3>
+          <p class="card-subtitle">Shrisawariya Events (Gorakhpur) • Concluded June 2026</p>
+          <p class="card-text">
+            Founded and directed event operations in Gorakhpur. Specialized in planning student farewell parties and promotional campaigns.
+          </p>
+          
+          <!-- EVENT METRICS BREAKDOWN -->
+          <div class="event-metrics">
+            <div class="metric-item">
+              <div class="metric-value">64K+</div>
+              <div class="metric-label">Reel Views</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">100+</div>
+              <div class="metric-label">Attendees</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">100%</div>
+              <div class="metric-label">Execution Success</div>
+            </div>
+          </div>
+
+          <a href="https://www.instagram.com/reel/DVNa1OnCZPH/?utm_source=ig_web_copy_link&srtk=MWQ1ZGUxMzBkMA==" target="_blank" class="cmd-btn" style="display: inline-block; margin-top: 10px; text-decoration: none; color: var(--accent-pink); border-color: rgba(225, 48, 108, 0.4);">
+            <i class="fa-brands fa-instagram"></i> Watch Promotional Reel
+          </a>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-icon"><i class="fa-solid fa-laptop-code"></i></div>
+          <h3 class="card-title">Harvard CS50x Enrollee</h3>
+          <p class="card-subtitle">Active Learning Track • In Progress</p>
+          <p class="card-text">
+            Currently advancing through CS50x (Harvard's Introduction to Computer Science). Diving deep into C memory management, algorithms, Python, SQL, and web architecture.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACADEMICS & HIGHLIGHTS -->
+    <section id="academics" style="margin-bottom: 60px;">
+      <div class="section-header">
+        <h2 class="section-title">Academic Background</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="glass-card">
+          <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h3 class="card-title">Diploma in Computer Science & Engineering</h3>
+          <p class="card-subtitle">Government Polytechnic, Sardhana, Meerut (1st Year)</p>
+          <p class="card-text">
+            Building foundational knowledge in computing architectures, structured programming, computer networks, and mathematical principles for engineering.
+          </p>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-icon"><i class="fa-solid fa-award"></i></div>
+          <h3 class="card-title">Secondary School Examination (CBSE)</h3>
+          <p class="card-subtitle">Central Board of Secondary Education</p>
+          <p class="card-text">
+            Completed secondary education under the CBSE board, securing <strong>368 / 500</strong> marks (73.6%).
+          </p>
+        </div>
+      </div>
+    </section>
 
   </div>
 
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/aniket-pathak" target="_blank" class="footer-social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://github.com/mynameispathak" target="_blank" class="footer-social-btn" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <!-- DIRECT EMAIL ACTION BUTTON -->
+      <a href="mailto:aniketpathak@example.com" class="footer-social-btn" title="Send Email"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+
+    <p class="copyright-text">© <span id="year"></span> <strong>aniketpathakkk.in</strong> • Made with <span style="color: #e53e3e;">❤️</span> in India</p>
+    <p class="timestamp-text">Last Modified: <span id="lastUpdated"></span></p>
+
+    <!-- Scroll To Top Button -->
+    <button id="topBtn" onclick="scrollToTop()" title="Go to top">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    // Set Year and Timestamp
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('lastUpdated').textContent = document.lastModified;
+
+    // Smooth Scroll
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Interactive Terminal Commands
+    function runCommand(cmd) {
+      const output = document.getElementById('consoleOutput');
+      let response = '';
+
+      switch(cmd) {
+        case 'reel':
+          response = `<p style="color: var(--accent-pink);">$ instagram --reel</p>
+                      <p>🎬 Promotional Reel Campaign: <strong>64,000+ Views</strong></p>
+                      <p>🔗 <a href="https://www.instagram.com/reel/DVNa1OnCZPH/?utm_source=ig_web_copy_link&srtk=MWQ1ZGUxMzBkMA==" target="_blank" style="color: var(--accent-cyan);">Click here to watch on Instagram</a></p>`;
+          break;
+        case 'events':
+          response = `<p style="color: var(--accent-cyan);">$ events --stats</p>
+                      <p>👑 <strong>Shrisawariya Events (Gorakhpur)</strong></p>
+                      <p>📈 Reel Reach: 64K+ Views | Attendees: 100+</p>
+                      <p>🎯 Scope: Student Farewells, Logistics & Campaign Strategy</p>`;
+          break;
+        case 'cs50x':
+          response = `<p style="color: var(--accent-cyan);">$ cs50x --info</p>
+                      <p>🚀 Harvard CS50x Track: <strong>In Progress</strong></p>
+                      <p>Topics: C, Memory Management, Algorithms, Python, Web Architecture.</p>`;
+          break;
+        case 'skills':
+          response = `<p style="color: var(--accent-cyan);">$ skills --list</p>
+                      <p>💻 Technical: C, Python, HTML5, CSS3, Git, Linux</p>
+                      <p>👥 Leadership: Campaign Marketing (64K+ Reach), Venue Logistics, Negotiations</p>`;
+          break;
+        case 'academics':
+          response = `<p style="color: var(--accent-cyan);">$ academics --status</p>
+                      <p>🎓 Diploma in CSE: 1st Year @ Govt. Polytechnic Sardhana Meerut</p>
+                      <p>📚 CBSE 10th Score: 368 / 500 (73.6%)</p>`;
+          break;
+        case 'email':
+          response = `<p style="color: var(--accent-cyan);">$ contact --email</p>
+                      <p>✉️ Direct Email: <a href="mailto:aniketpathak@example.com" style="color: var(--accent-cyan);">aniketpathak@example.com</a></p>`;
+          break;
+        case 'clear':
+          output.innerHTML = `<p style="color: var(--accent-cyan);">$ console cleared</p><p>Type or click a command to explore.</p>`;
+          return;
+      }
+
+      output.innerHTML += `<div style="margin-top: 12px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 10px;">${response}</div>`;
+      output.scrollTop = output.scrollHeight;
+    }
+  </script>
 </body>
 </html>
